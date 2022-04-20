@@ -86,7 +86,7 @@
 }
 
 .CursorPointer {
-    cursor: url('project://database/Assets/Art/Icons/aero_link2.png?fileID=2800000&guid=f712e9ded48754e4692764ab5409a0c1&type=3#aero_link2');
+    cursor: url('project://database/Assets/NorLibUnity/Art/Icons/aero_link2.png');
 }
 
 .OptionList {
