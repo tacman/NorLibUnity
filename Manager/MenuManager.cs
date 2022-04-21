@@ -12,22 +12,12 @@ public class MenuManager : MonoBehaviour
     List<Label> lblScores;
     GameManager.eGameStarte oldState;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Time.timeScale = 0;
-        GameManager.PauseGame();
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnEnable()
     {
+        Debug.Log("timescale=0 " + GameManager.GetState());
+        Time.timeScale = 0;
+
         ve = GetComponent<UIDocument>().rootVisualElement;
 
         var buttons = ve.Query<Button>();

@@ -27,6 +27,8 @@ public class GameManager
         if(_gameState == eGameStarte.StartScreen)
         {
             ResetScore();
+            Time.timeScale = 1;
+
             setState(eGameStarte.Playing);
         }
     }
@@ -35,6 +37,7 @@ public class GameManager
     {
         if (_gameState == eGameStarte.Playing)
         {
+            Time.timeScale = 0;
             setState(eGameStarte.Paused);
         }
     }
@@ -43,12 +46,14 @@ public class GameManager
     {
         if (_gameState == eGameStarte.Paused)
         {
+            Time.timeScale = 1;
             setState(eGameStarte.Playing);
         }
     }
 
     public static void StopGame()
     {
+        Time.timeScale = 0;
         setState(eGameStarte.StartScreen);
     }
 
@@ -83,6 +88,11 @@ public class GameManager
             _gameState = state;
             StateChanged?.Invoke(state);
         }
+    }
+
+    public static eGameStarte GetState()
+    {
+        return _gameState;
     }
 
     // Start is called before the first frame update
