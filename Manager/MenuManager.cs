@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+// see https://docs.unity3d.com/2022.1/Documentation/Manual/UIE-create-tabbed-menu-for-runtime.html for tabs
+
 public class MenuManager : MonoBehaviour
 {
 
@@ -11,6 +13,8 @@ public class MenuManager : MonoBehaviour
     VisualElement ve;
     List<Label> lblScores;
     GameManager.eGameStarte oldState;
+    Label lblGamestate;
+
 
 
     private void OnEnable()
@@ -19,6 +23,8 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0;
 
         ve = GetComponent<UIDocument>().rootVisualElement;
+        lblGamestate= ve.Q<Label>("game-state");
+        lblGamestate.text = GameManager.GetState().ToString();
 
         var buttons = ve.Query<Button>();
         foreach (var btn in buttons.ToList())
@@ -32,6 +38,7 @@ public class MenuManager : MonoBehaviour
         {
             lblScore.text = "0";
         }
+
 
         GameManager.StateChanged += GameManager_StateChanged;
         GameManager.ScoreChanged += GameManager_ScoreChanged;
@@ -53,6 +60,8 @@ public class MenuManager : MonoBehaviour
 
     private void GameManager_StateChanged(GameManager.eGameStarte newState)
     {
+
+        // disable all except the new state? 
         if(newState == GameManager.eGameStarte.Playing && oldState == GameManager.eGameStarte.StartScreen)
         {
             ve.Q<VisualElement>("StartScreenBackground").style.display = DisplayStyle.None;
@@ -63,6 +72,7 @@ public class MenuManager : MonoBehaviour
         }
 
         oldState = newState;
+        ve.Q<Label>("game-state").text = newState.ToString();
     }
 
     private void buttonClicked(Button sender ,ClickEvent evt)
